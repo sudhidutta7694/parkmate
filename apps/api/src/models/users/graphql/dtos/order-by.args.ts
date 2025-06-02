@@ -21,6 +21,8 @@ export class UserOrderByWithRelationInputStrict
   updatedAt: Prisma.SortOrder
   @Field(() => Prisma.SortOrder)
   name: Prisma.SortOrder | Prisma.SortOrderInput
+  @Field(() => Prisma.SortOrder)
+  image: Prisma.SortOrder | Prisma.SortOrderInput
   // Todo: Add below field decorator to the SortOrder properties.
   // @Field(() => Prisma.SortOrder)
 }

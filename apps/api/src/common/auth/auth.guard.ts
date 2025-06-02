@@ -46,8 +46,19 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      const user = await this.jwtService.verifyAsync<JwtPayload>(token)
-      req.user = user
+      const payload = await this.jwtService.verifyAsync<JwtPayload>(token)
+      if (payload?.uid) {
+        const uid = payload?.uid
+        const user = await this.prisma.user.findUnique({
+          where: { uid },
+        })
+        if (!user) {
+          throw new UnauthorizedException('User not found.')
+        }
+        throw new UnauthorizedException('Invalid token payload.')
+      }
+      console.log('Token payload:', payload)
+      req.user = payload
     } catch (err) {
       console.error('Token validation error:', err)
       throw new UnauthorizedException('Invalid token.')

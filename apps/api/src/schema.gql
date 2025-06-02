@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 type User {
+  image: String
   uid: String!
   name: String
   createdAt: DateTime!
@@ -14,7 +15,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type LoginOutput {
+  jwtToken: String!
+}
+
 type Query {
+  whoami: User!
   users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
   user(where: UserWhereUniqueInput!): User!
 }
@@ -64,6 +70,7 @@ input UserOrderByWithRelationInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   name: SortOrder
+  image: SortOrder
 }
 
 enum SortOrder {
@@ -80,20 +87,41 @@ enum UserScalarFieldEnum {
   createdAt
   updatedAt
   name
+  image
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
+  registerWithCredentials(registerWithCredentialsInput: RegisterWithCredentialsInput!): User!
+  registerWithProvider(registerWithProviderInput: RegisterWithProviderInput!): User!
+  login(loginInput: LoginInput!): LoginOutput!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(where: UserWhereUniqueInput!): User!
 }
 
-input CreateUserInput {
+input RegisterWithCredentialsInput {
+  email: String!
+  password: String!
+  name: String
+  image: String
+}
+
+input RegisterWithProviderInput {
+  image: String
   uid: String!
   name: String!
+  type: AuthProviderType!
+}
+
+enum AuthProviderType {
+  GOOGLE
+  CREDENTIALS
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
 
 input UpdateUserInput {
   uid: String!
-  name: String
 }
