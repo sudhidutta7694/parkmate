@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -147,6 +147,127 @@ exports.Prisma.AuthProviderScalarFieldEnum = {
   type: 'type'
 };
 
+exports.Prisma.CustomerScalarFieldEnum = {
+  uid: 'uid',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  displayName: 'displayName'
+};
+
+exports.Prisma.ManagerScalarFieldEnum = {
+  uid: 'uid',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  displayName: 'displayName',
+  companyId: 'companyId'
+};
+
+exports.Prisma.ValetScalarFieldEnum = {
+  uid: 'uid',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  displayName: 'displayName',
+  image: 'image',
+  licenceID: 'licenceID',
+  companyId: 'companyId'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  displayName: 'displayName',
+  description: 'description'
+};
+
+exports.Prisma.GarageScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  displayName: 'displayName',
+  description: 'description',
+  images: 'images',
+  companyId: 'companyId'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  address: 'address',
+  lat: 'lat',
+  lng: 'lng',
+  garageId: 'garageId'
+};
+
+exports.Prisma.SlotScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  displayName: 'displayName',
+  pricePerHour: 'pricePerHour',
+  length: 'length',
+  width: 'width',
+  height: 'height',
+  type: 'type',
+  garageId: 'garageId'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  pricePerHour: 'pricePerHour',
+  totalPrice: 'totalPrice',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  vehicleNumber: 'vehicleNumber',
+  phoneNumber: 'phoneNumber',
+  passcode: 'passcode',
+  status: 'status',
+  slotId: 'slotId',
+  customerId: 'customerId'
+};
+
+exports.Prisma.ValetAssignmentScalarFieldEnum = {
+  bookingId: 'bookingId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  pickupLat: 'pickupLat',
+  pickupLng: 'pickupLng',
+  returnLat: 'returnLat',
+  returnLng: 'returnLng',
+  pickupValetId: 'pickupValetId',
+  returnValetId: 'returnValetId'
+};
+
+exports.Prisma.BookingTimelineScalarFieldEnum = {
+  id: 'id',
+  timestamp: 'timestamp',
+  status: 'status',
+  bookingId: 'bookingId',
+  valetId: 'valetId',
+  managerId: 'managerId'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  rating: 'rating',
+  comment: 'comment',
+  customerId: 'customerId',
+  garageId: 'garageId'
+};
+
+exports.Prisma.VerificationScalarFieldEnum = {
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  verified: 'verified',
+  adminId: 'adminId',
+  garageId: 'garageId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -166,11 +287,40 @@ exports.AuthProviderType = exports.$Enums.AuthProviderType = {
   CREDENTIALS: 'CREDENTIALS'
 };
 
+exports.SlotType = exports.$Enums.SlotType = {
+  CAR: 'CAR',
+  HEAVY: 'HEAVY',
+  BIKE: 'BIKE',
+  BICYCLE: 'BICYCLE'
+};
+
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  BOOKED: 'BOOKED',
+  VALET_ASSIGNED_FOR_CHECK_IN: 'VALET_ASSIGNED_FOR_CHECK_IN',
+  VALET_PICKED_UP: 'VALET_PICKED_UP',
+  CHECKED_IN: 'CHECKED_IN',
+  VALET_ASSIGNED_FOR_CHECK_OUT: 'VALET_ASSIGNED_FOR_CHECK_OUT',
+  CHECKED_OUT: 'CHECKED_OUT',
+  VALET_RETURNED: 'VALET_RETURNED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Admin: 'Admin',
   Credentials: 'Credentials',
-  AuthProvider: 'AuthProvider'
+  AuthProvider: 'AuthProvider',
+  Customer: 'Customer',
+  Manager: 'Manager',
+  Valet: 'Valet',
+  Company: 'Company',
+  Garage: 'Garage',
+  Address: 'Address',
+  Slot: 'Slot',
+  Booking: 'Booking',
+  ValetAssignment: 'ValetAssignment',
+  BookingTimeline: 'BookingTimeline',
+  Review: 'Review',
+  Verification: 'Verification'
 };
 
 /**

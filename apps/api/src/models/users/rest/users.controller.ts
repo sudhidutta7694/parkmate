@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  NotFoundException,
 } from '@nestjs/common'
 
 import { PrismaService } from 'src/common/prisma/prisma.service'
@@ -41,11 +40,16 @@ export class UsersController {
 
   @ApiOkResponse({ type: [UserEntity] })
   @Get()
-  findAll(@Query() { skip, take, order, sortBy }: UserQueryDto) {
+  findAll(
+    @Query() { skip, take, order, sortBy, search, searchBy }: UserQueryDto,
+  ) {
     return this.prisma.user.findMany({
       ...(skip ? { skip: +skip } : null),
       ...(take ? { take: +take } : null),
       ...(sortBy ? { orderBy: { [sortBy]: order || 'asc' } } : null),
+      ...(searchBy
+        ? { where: { [searchBy]: { contains: search, mode: 'insensitive' } } }
+        : null),
     })
   }
 
@@ -62,10 +66,12 @@ export class UsersController {
   async update(
     @Param('uid') uid: string,
     @Body() updateUserDto: UpdateUser,
-    @GetUser() userInfo: GetUserType,
+    @GetUser() user: GetUserType,
   ) {
-    const user = await this.prisma.user.findUnique({ where: { uid } })
-    if (!user) throw new NotFoundException('User not found')
+    const userInfo = await this.prisma.user.findUnique({ where: { uid } })
+    if (!userInfo) {
+      throw new Error('User not found')
+    }
     checkRowLevelPermission(user, userInfo.uid)
     return this.prisma.user.update({
       where: { uid },
@@ -76,9 +82,11 @@ export class UsersController {
   @ApiBearerAuth()
   @AllowAuthenticated()
   @Delete(':uid')
-  async remove(@Param('uid') uid: string, @GetUser() userInfo: GetUserType) {
-    const user = await this.prisma.user.findUnique({ where: { uid } })
-    if (!user) throw new NotFoundException('User not found')
+  async remove(@Param('uid') uid: string, @GetUser() user: GetUserType) {
+    const userInfo = await this.prisma.user.findUnique({ where: { uid } })
+    if (!userInfo) {
+      throw new Error('User not found')
+    }
     checkRowLevelPermission(user, userInfo.uid)
     return this.prisma.user.delete({ where: { uid } })
   }

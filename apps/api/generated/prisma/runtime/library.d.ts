@@ -1890,7 +1890,7 @@ declare type InteractiveTransactionInfo<Payload = unknown> = {
     /**
      * Transaction ID returned by the query engine.
      */
-    id: string;
+    id: number;
     /**
      * Arbitrary payload the meaning of which depends on the `Engine` implementation.
      * For example, `DataProxyEngine` needs to associate different API endpoints with transactions.
@@ -2642,7 +2642,7 @@ declare type PrismaPromiseFactory = <T extends PrismaOperationSpec<unknown>>(cal
 
 declare type PrismaPromiseInteractiveTransaction<PayloadType = unknown> = {
     kind: 'itx';
-    id: string;
+    id: number;
     payload: PayloadType;
 };
 
@@ -2736,8 +2736,8 @@ declare type QueryEngineInstance = {
     query(requestStr: string, headersStr: string, transactionId: string | undefined, requestId: string): Promise<string>;
     sdlSchema?(): Promise<string>;
     startTransaction(options: string, traceHeaders: string, requestId: string): Promise<string>;
-    commitTransaction(id: string, traceHeaders: string, requestId: string): Promise<string>;
-    rollbackTransaction(id: string, traceHeaders: string, requestId: string): Promise<string>;
+    commitTransaction(id: number, traceHeaders: string, requestId: string): Promise<string>;
+    rollbackTransaction(id: number, traceHeaders: string, requestId: string): Promise<string>;
     metrics?(options: string): Promise<string>;
     applyPendingMigrations?(): Promise<void>;
     trace(requestId: string): Promise<string | null>;

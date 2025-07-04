@@ -6,14 +6,14 @@ import {
 import { FindManyUserArgs, FindUniqueUserArgs } from './dtos/find.args'
 import { PrismaService } from 'src/common/prisma/prisma.service'
 import {
-  RegisterWithProviderInput,
-  RegisterWithCredentialsInput,
   LoginInput,
   LoginOutput,
+  RegisterWithCredentialsInput,
+  RegisterWithProviderInput,
 } from './dtos/create-user.input'
 import { UpdateUserInput } from './dtos/update-user.input'
 import * as bcrypt from 'bcryptjs'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuid } from 'uuid'
 import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
@@ -22,7 +22,6 @@ export class UsersService {
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
-
   registerWithProvider({ image, name, uid, type }: RegisterWithProviderInput) {
     return this.prisma.user.create({
       data: {
@@ -49,12 +48,15 @@ export class UsersService {
     })
 
     if (existingUser) {
-      throw new BadRequestException('User with this email already exists')
+      throw new BadRequestException('User already exists with this email.')
     }
 
+    // Hash the password
     const salt = bcrypt.genSaltSync()
-    const hashedPassword = bcrypt.hashSync(password, salt)
-    const uid = uuidv4()
+    const passwordHash = bcrypt.hashSync(password, salt)
+
+    const uid = uuid()
+
     return this.prisma.user.create({
       data: {
         uid,
@@ -63,7 +65,7 @@ export class UsersService {
         Credentials: {
           create: {
             email,
-            passwordHash: hashedPassword,
+            passwordHash,
           },
         },
         AuthProvider: {
@@ -76,6 +78,41 @@ export class UsersService {
         Credentials: true,
       },
     })
+  }
+
+  async login({ email, password }: LoginInput): Promise<LoginOutput> {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        Credentials: { email },
+      },
+      include: {
+        Credentials: true,
+      },
+    })
+
+    if (!user || !user.Credentials?.passwordHash) {
+      throw new UnauthorizedException('Invalid email or password.')
+    }
+
+    const isPasswordValid = bcrypt.compareSync(
+      password,
+      user.Credentials.passwordHash,
+    )
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid email or password.')
+    }
+
+    const jwtToken = this.jwtService.sign({ uid: user.uid })
+
+    return {
+      token: jwtToken,
+      user: {
+        ...user,
+        image: user.image ?? '', // ensure image is a string
+        name: user.name ?? '', // ensure name is a string
+      },
+    }
   }
 
   findAll(args: FindManyUserArgs) {
@@ -96,48 +133,5 @@ export class UsersService {
 
   remove(args: FindUniqueUserArgs) {
     return this.prisma.user.delete(args)
-  }
-
-  async login({ email, password }: LoginInput): Promise<LoginOutput> {
-    const user = await this.prisma.user.findFirst({
-      where: {
-        Credentials: {
-          email,
-        },
-      },
-      include: {
-        Credentials: true,
-      },
-    })
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid email or password')
-    }
-
-    if (
-      !user.Credentials ||
-      !bcrypt.compareSync(password, user.Credentials.passwordHash)
-    ) {
-      throw new UnauthorizedException('Invalid email or password')
-    }
-
-    const isPasswordValid = bcrypt.compareSync(
-      password,
-      user.Credentials.passwordHash,
-    )
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid email or password')
-    }
-
-    const jwtToken = this.jwtService.sign(
-      {
-        uid: user.uid,
-      },
-      {
-        algorithm: 'HS256',
-      },
-    )
-
-    return { jwtToken }
   }
 }

@@ -3,24 +3,34 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "libs/*"
+    ]
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
   "scripts": {
-    "format": "prettier \"{apps,libs}/**/*.{ts, tsx, js, json}\" --ignore-path .gitignore",
-    "format:check": "pnpm format --check",
-    "format:write": "pnpm format --write",
-    "tsc": "pnpm --parallel -r run tsc",
-    "lint": "pnpm --parallel -r run lint",
-    "build": "pnpm --parallel -r run build",
-    "validate": "pnpm format:write && pnpm lint && pnpm tsc && pnpm build",
+    "format": "prettier \"{apps,libs}/**/*.{ts,tsx,js,json}\" --ignore-path .gitignore",
+    "format:check": "yarn format --check",
+    "format:write": "yarn format --write",
+    "tsc": "yarn nx run-many -t tsc",
+    "lint": "yarn nx run-many -t lint",
+    "build": "yarn nx run-many -t build",
+    "validate": "yarn format:write && yarn lint && yarn tsc && yarn build",
     "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.11.0",
   "devDependencies": {
     "husky": "^8.0.0",
+    "nx": "21.1.2",
     "prettier": "^3.5.3",
     "prisma": "^6.8.2",
     "typescript": "^5.8.3"
-  }
+  },
+  "packageManager": "yarn@4.9.1"
 }
