@@ -15,7 +15,6 @@ import { Request } from 'express'
 interface JwtPayload {
   uid: string
 }
-
 export interface AuthRequest extends Request {
   user?: JwtPayload & { roles?: Role[] }
   headers: { authorization?: string }

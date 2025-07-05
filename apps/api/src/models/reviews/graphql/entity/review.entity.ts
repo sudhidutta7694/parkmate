@@ -5,7 +5,9 @@ import { RestrictProperties } from 'src/common/dtos/common.input'
 @ObjectType()
 export class Review implements RestrictProperties<Review, ReviewType> {
   id: number
+  @Field(() => Date)
   createdAt: Date
+  @Field(() => Date)
   updatedAt: Date
   rating: number
   @Field({ nullable: true })

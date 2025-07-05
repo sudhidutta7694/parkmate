@@ -5,7 +5,9 @@ import { RestrictProperties } from 'src/common/dtos/common.input'
 @ObjectType()
 export class Valet implements RestrictProperties<Valet, ValetType> {
   uid: string
+  @Field(() => Date)
   createdAt: Date
+  @Field(() => Date)
   updatedAt: Date
   displayName: string
   @Field({ nullable: true })

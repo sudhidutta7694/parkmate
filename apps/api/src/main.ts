@@ -42,4 +42,11 @@ async function bootstrap() {
   }
 }
 
-void bootstrap()
+bootstrap()
+  .then(() => {
+    console.log('✅ Bootstrap success')
+  })
+  .catch((err) => {
+    console.error('❌ Bootstrap failed:', err)
+    process.exit(1)
+  })

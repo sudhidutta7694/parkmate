@@ -1,4 +1,4 @@
-import { InputType, PartialType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import {
   BoolFilter,
@@ -23,14 +23,20 @@ export class VerificationWhereInputStrict
       Prisma.VerificationWhereInput
     >
 {
+  @Field(() => DateTimeFilter)
   createdAt: DateTimeFilter
+  @Field(() => DateTimeFilter)
   updatedAt: DateTimeFilter
+  @Field(() => BoolFilter)
   verified: BoolFilter
+  @Field(() => StringFilter)
   adminId: StringFilter
+  @Field(() => IntFilter)
   garageId: IntFilter
+  @Field(() => AdminRelationFilter)
   Admin: AdminRelationFilter
+  @Field(() => GarageRelationFilter)
   Garage: GarageRelationFilter
-
   AND: VerificationWhereInput[]
   OR: VerificationWhereInput[]
   NOT: VerificationWhereInput[]

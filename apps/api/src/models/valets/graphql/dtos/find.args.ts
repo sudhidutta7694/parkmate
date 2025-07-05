@@ -1,4 +1,10 @@
-import { ArgsType, Field, registerEnumType, PartialType } from '@nestjs/graphql'
+import {
+  ArgsType,
+  Field,
+  registerEnumType,
+  PartialType,
+  HideField,
+} from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import { ValetOrderByWithRelationInput } from './order-by.args'
 import { ValetWhereInput, ValetWhereUniqueInput } from './where.args'
@@ -17,6 +23,7 @@ class FindManyValetArgsStrict
       Omit<Prisma.ValetFindManyArgs, 'include' | 'select'>
     >
 {
+  @HideField()
   omit: Prisma.ValetOmit<DefaultArgs> | null
   where: ValetWhereInput
   orderBy: ValetOrderByWithRelationInput[]

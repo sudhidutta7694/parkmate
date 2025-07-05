@@ -1,4 +1,4 @@
-import { InputType, PartialType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import {
   DateTimeFilter,
@@ -11,6 +11,7 @@ import { GarageRelationFilter } from 'src/models/garages/graphql/dtos/where.args
 
 @InputType()
 export class AddressWhereUniqueInput {
+  @Field(() => IntFilter)
   id: number
 }
 
@@ -19,9 +20,13 @@ export class AddressWhereInputStrict
   implements
     RestrictProperties<AddressWhereInputStrict, Prisma.AddressWhereInput>
 {
+  @Field(() => IntFilter)
   id: IntFilter
+  @Field(() => DateTimeFilter)
   createdAt: DateTimeFilter
+  @Field(() => DateTimeFilter)
   updatedAt: DateTimeFilter
+  @Field(() => StringFilter)
   address: StringFilter
   lat: FloatFilter
   lng: FloatFilter

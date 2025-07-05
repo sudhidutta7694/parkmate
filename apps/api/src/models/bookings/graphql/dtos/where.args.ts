@@ -34,8 +34,11 @@ export class BookingWhereInputStrict
   implements
     RestrictProperties<BookingWhereInputStrict, Prisma.BookingWhereInput>
 {
+  @Field(() => IntFilter)
   id: IntFilter
+  @Field(() => DateTimeFilter)
   createdAt: DateTimeFilter
+  @Field(() => DateTimeFilter)
   updatedAt: DateTimeFilter
   pricePerHour: FloatFilter
   totalPrice: FloatFilter

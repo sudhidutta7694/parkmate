@@ -9,7 +9,9 @@ registerEnumType($Enums.BookingStatus, {
 @ObjectType()
 export class Booking implements RestrictProperties<Booking, BookingType> {
   id: number
+  @Field(() => Date)
   createdAt: Date
+  @Field(() => Date)
   updatedAt: Date
   @Field({ nullable: true })
   pricePerHour: number

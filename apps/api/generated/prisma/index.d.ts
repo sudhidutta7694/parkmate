@@ -2610,7 +2610,7 @@ export namespace Prisma {
   }
 
   export type UserCountAggregateOutputType = {
-    uid: string
+    uid: number
     createdAt: number
     updatedAt: number
     name: number
@@ -3784,7 +3784,7 @@ export namespace Prisma {
   }
 
   export type AdminCountAggregateOutputType = {
-    uid: string
+    uid: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4850,7 +4850,7 @@ export namespace Prisma {
   }
 
   export type CredentialsCountAggregateOutputType = {
-    uid: string
+    uid: number
     email: number
     passwordHash: number
     createdAt: number
@@ -5902,7 +5902,7 @@ export namespace Prisma {
   }
 
   export type AuthProviderCountAggregateOutputType = {
-    uid: string
+    uid: number
     type: number
     _all: number
   }
@@ -6925,7 +6925,7 @@ export namespace Prisma {
   }
 
   export type CustomerCountAggregateOutputType = {
-    uid: string
+    uid: number
     createdAt: number
     updatedAt: number
     displayName: number
@@ -8040,7 +8040,7 @@ export namespace Prisma {
   }
 
   export type ManagerCountAggregateOutputType = {
-    uid: string
+    uid: number
     createdAt: number
     updatedAt: number
     displayName: number
@@ -9193,7 +9193,7 @@ export namespace Prisma {
   }
 
   export type ValetCountAggregateOutputType = {
-    uid: string
+    uid: number
     createdAt: number
     updatedAt: number
     displayName: number

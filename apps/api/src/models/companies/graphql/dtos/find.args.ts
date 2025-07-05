@@ -1,10 +1,18 @@
-import { ArgsType, Field, registerEnumType, PartialType } from '@nestjs/graphql'
+import {
+  ArgsType,
+  Field,
+  Int,
+  registerEnumType,
+  PartialType,
+  HideField,
+} from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import { CompanyOrderByWithRelationInput } from './order-by.args'
 import { CompanyWhereInput, CompanyWhereUniqueInput } from './where.args'
 import { RestrictProperties } from 'src/common/dtos/common.input'
 import { DefaultArgs } from 'generated/prisma/runtime/library'
 
+// Register enum for GraphQL
 registerEnumType(Prisma.CompanyScalarFieldEnum, {
   name: 'CompanyScalarFieldEnum',
 })
@@ -17,13 +25,25 @@ class FindManyCompanyArgsStrict
       Omit<Prisma.CompanyFindManyArgs, 'include' | 'select'>
     >
 {
+  @HideField()
   omit: Prisma.CompanyOmit<DefaultArgs> | null
+
+  @Field(() => CompanyWhereInput, { nullable: true })
   where: CompanyWhereInput
+
+  @Field(() => [CompanyOrderByWithRelationInput], { nullable: true })
   orderBy: CompanyOrderByWithRelationInput[]
+
+  @Field(() => CompanyWhereUniqueInput, { nullable: true })
   cursor: CompanyWhereUniqueInput
+
+  @Field(() => Int, { nullable: true })
   take: number
+
+  @Field(() => Int, { nullable: true })
   skip: number
-  @Field(() => [Prisma.CompanyScalarFieldEnum])
+
+  @Field(() => [Prisma.CompanyScalarFieldEnum], { nullable: true })
   distinct: Prisma.CompanyScalarFieldEnum[]
 }
 
@@ -34,5 +54,6 @@ export class FindManyCompanyArgs extends PartialType(
 
 @ArgsType()
 export class FindUniqueCompanyArgs {
-  where: CompanyWhereUniqueInput
+  @Field(() => CompanyWhereUniqueInput)
+  where!: CompanyWhereUniqueInput
 }

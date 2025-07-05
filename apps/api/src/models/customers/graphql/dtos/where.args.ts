@@ -1,4 +1,4 @@
-import { InputType, PartialType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import {
   DateTimeFilter,
@@ -14,23 +14,39 @@ export class CustomerWhereUniqueInput {
   uid: string
 }
 
-InputType()
+@InputType()
 export class CustomerWhereInputStrict
   implements
     RestrictProperties<CustomerWhereInputStrict, Prisma.CustomerWhereInput>
 {
+  @Field(() => UserRelationFilter, { nullable: true })
   User: UserRelationFilter
+
+  @Field(() => StringFilter, { nullable: true })
   uid: StringFilter
+
+  @Field(() => DateTimeFilter, { nullable: true })
   createdAt: DateTimeFilter
+
+  @Field(() => DateTimeFilter, { nullable: true })
   updatedAt: DateTimeFilter
+
+  @Field(() => StringFilter, { nullable: true })
   displayName: StringFilter
+
+  @Field(() => BookingListRelationFilter, { nullable: true })
   Bookings: BookingListRelationFilter
+
+  @Field(() => ReviewListRelationFilter, { nullable: true })
   Reviews: ReviewListRelationFilter
 
   AND: CustomerWhereInput[]
+
   OR: CustomerWhereInput[]
+
   NOT: CustomerWhereInput[]
 }
+
 @InputType()
 export class CustomerWhereInput extends PartialType(CustomerWhereInputStrict) {}
 

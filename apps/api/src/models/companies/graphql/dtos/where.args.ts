@@ -1,4 +1,4 @@
-import { InputType, PartialType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import {
   DateTimeFilter,
@@ -20,10 +20,15 @@ export class CompanyWhereInputStrict
   implements
     RestrictProperties<CompanyWhereInputStrict, Prisma.CompanyWhereInput>
 {
+  @Field(() => IntFilter)
   id: IntFilter
+  @Field(() => DateTimeFilter)
   createdAt: DateTimeFilter
+  @Field(() => DateTimeFilter)
   updatedAt: DateTimeFilter
+  @Field(() => StringFilter)
   displayName: StringFilter
+  @Field(() => StringFilter)
   description: StringFilter
   Garages: GarageListRelationFilter
   Managers: ManagerListRelationFilter

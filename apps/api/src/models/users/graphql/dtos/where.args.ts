@@ -1,4 +1,4 @@
-import { InputType, PartialType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import {
   DateTimeFilter,
@@ -28,9 +28,13 @@ export class UserWhereInputStrict
   Customer: CustomerRelationFilter
   Manager: ManagerRelationFilter
   Valet: ValetRelationFilter
+  @Field(() => StringFilter)
   uid: StringFilter
+  @Field(() => DateTimeFilter)
   createdAt: DateTimeFilter
+  @Field(() => DateTimeFilter)
   updatedAt: DateTimeFilter
+  @Field(() => StringFilter)
   name: StringFilter
 
   AND: UserWhereInput[]

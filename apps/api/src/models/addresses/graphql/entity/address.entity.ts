@@ -7,10 +7,10 @@ export class Address implements RestrictProperties<Address, AddressType> {
   @Field(() => Int)
   id: number
 
-  @Field()
+  @Field(() => Date)
   createdAt: Date
 
-  @Field()
+  @Field(() => Date)
   updatedAt: Date
 
   @Field(() => String)

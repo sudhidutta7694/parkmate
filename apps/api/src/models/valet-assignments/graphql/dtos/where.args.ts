@@ -1,4 +1,4 @@
-import { InputType, PartialType } from '@nestjs/graphql'
+import { Field, InputType, PartialType } from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import {
   DateTimeFilter,
@@ -23,12 +23,19 @@ export class ValetAssignmentWhereInputStrict
       Prisma.ValetAssignmentWhereInput
     >
 {
+  @Field(() => IntFilter)
   bookingId: IntFilter
+  @Field(() => DateTimeFilter)
   createdAt: DateTimeFilter
+  @Field(() => DateTimeFilter)
   updatedAt: DateTimeFilter
+  @Field(() => FloatFilter)
   pickupLat: FloatFilter
+  @Field(() => FloatFilter)
   pickupLng: FloatFilter
+  @Field(() => FloatFilter)
   returnLat: FloatFilter
+  @Field(() => FloatFilter)
   returnLng: FloatFilter
   pickupValetId: StringFilter
   returnValetId: StringFilter

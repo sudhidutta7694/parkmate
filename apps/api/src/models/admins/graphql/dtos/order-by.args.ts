@@ -19,6 +19,7 @@ export class AdminOrderByWithRelationInputStrict
   createdAt: Prisma.SortOrder
   @Field(() => Prisma.SortOrder)
   updatedAt: Prisma.SortOrder
+  @Field(() => UserOrderByWithRelationInput)
   User: UserOrderByWithRelationInput
   // Todo: Add below field decorator to the SortOrder properties.
   // @Field(() => Prisma.SortOrder)

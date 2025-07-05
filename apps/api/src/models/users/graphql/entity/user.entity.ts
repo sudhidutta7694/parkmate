@@ -1,5 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { $Enums, User as UserType } from '../../../../../generated/prisma'
+import {
+  User as UserType,
+  AuthProviderType,
+} from '../../../../../generated/prisma'
 import { RestrictProperties } from 'src/common/dtos/common.input'
 
 @ObjectType()
@@ -7,7 +10,9 @@ export class User implements RestrictProperties<User, UserType> {
   @Field({ nullable: true })
   image: string
   uid: string
+  @Field(() => Date)
   createdAt: Date
+  @Field(() => Date)
   updatedAt: Date
   @Field({ nullable: true })
   name: string
@@ -16,6 +21,6 @@ export class User implements RestrictProperties<User, UserType> {
 @ObjectType()
 export class AuthProvider {
   uid: string
-  @Field(() => $Enums.AuthProviderType)
-  type: $Enums.AuthProviderType
+  @Field(() => AuthProviderType)
+  type: AuthProviderType
 }

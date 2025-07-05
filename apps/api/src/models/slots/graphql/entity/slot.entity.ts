@@ -9,7 +9,9 @@ registerEnumType($Enums.SlotType, {
 @ObjectType()
 export class Slot implements RestrictProperties<Slot, SlotType> {
   id: number
+  @Field(() => Date)
   createdAt: Date
+  @Field(() => Date)
   updatedAt: Date
 
   @Field({ nullable: true })

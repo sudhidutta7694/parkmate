@@ -1,4 +1,11 @@
-import { ArgsType, Field, registerEnumType, PartialType } from '@nestjs/graphql'
+import {
+  ArgsType,
+  Field,
+  Int,
+  registerEnumType,
+  PartialType,
+  HideField,
+} from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import { AdminOrderByWithRelationInput } from './order-by.args'
 import { AdminWhereInput, AdminWhereUniqueInput } from './where.args'
@@ -17,13 +24,25 @@ class FindManyAdminArgsStrict
       Omit<Prisma.AdminFindManyArgs, 'include' | 'select'>
     >
 {
+  @HideField()
   omit: Prisma.AdminOmit<DefaultArgs> | null
+
+  @Field(() => AdminWhereInput, { nullable: true })
   where: AdminWhereInput
+
+  @Field(() => [AdminOrderByWithRelationInput], { nullable: true })
   orderBy: AdminOrderByWithRelationInput[]
+
+  @Field(() => AdminWhereUniqueInput, { nullable: true })
   cursor: AdminWhereUniqueInput
+
+  @Field(() => Int, { nullable: true })
   take: number
+
+  @Field(() => Int, { nullable: true })
   skip: number
-  @Field(() => [Prisma.AdminScalarFieldEnum])
+
+  @Field(() => [Prisma.AdminScalarFieldEnum], { nullable: true })
   distinct: Prisma.AdminScalarFieldEnum[]
 }
 
@@ -32,5 +51,6 @@ export class FindManyAdminArgs extends PartialType(FindManyAdminArgsStrict) {}
 
 @ArgsType()
 export class FindUniqueAdminArgs {
-  where: AdminWhereUniqueInput
+  @Field(() => AdminWhereUniqueInput)
+  where!: AdminWhereUniqueInput
 }

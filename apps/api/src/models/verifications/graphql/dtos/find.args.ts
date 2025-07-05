@@ -1,4 +1,10 @@
-import { ArgsType, Field, registerEnumType, PartialType } from '@nestjs/graphql'
+import {
+  ArgsType,
+  Field,
+  registerEnumType,
+  PartialType,
+  HideField,
+} from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import { VerificationOrderByWithRelationInput } from './order-by.args'
 import {
@@ -20,6 +26,7 @@ class FindManyVerificationArgsStrict
       Omit<Prisma.VerificationFindManyArgs, 'include' | 'select'>
     >
 {
+  @HideField()
   omit: Prisma.VerificationOmit<DefaultArgs> | null
   where: VerificationWhereInput
   orderBy: VerificationOrderByWithRelationInput[]

@@ -6,10 +6,15 @@ import { RestrictProperties } from 'src/common/dtos/common.input'
 export class ValetAssignment
   implements RestrictProperties<ValetAssignment, ValetAssignmentType>
 {
+  @Field(() => Number)
   bookingId: number
+  @Field(() => Date)
   createdAt: Date
+  @Field(() => Date)
   updatedAt: Date
+  @Field(() => Number)
   pickupLat: number
+  @Field(() => Number)
   pickupLng: number
   @Field({ nullable: true })
   returnLat: number

@@ -1,4 +1,11 @@
-import { ArgsType, Field, registerEnumType, PartialType } from '@nestjs/graphql'
+import {
+  ArgsType,
+  Field,
+  Int,
+  registerEnumType,
+  PartialType,
+  HideField,
+} from '@nestjs/graphql'
 import { Prisma } from '../../../../../generated/prisma'
 import { ValetAssignmentOrderByWithRelationInput } from './order-by.args'
 import {
@@ -20,13 +27,25 @@ class FindManyValetAssignmentArgsStrict
       Omit<Prisma.ValetAssignmentFindManyArgs, 'include' | 'select'>
     >
 {
+  @HideField()
   omit: Prisma.ValetAssignmentOmit<DefaultArgs> | null
+
+  @Field(() => ValetAssignmentWhereInput, { nullable: true })
   where: ValetAssignmentWhereInput
+
+  @Field(() => [ValetAssignmentOrderByWithRelationInput], { nullable: true })
   orderBy: ValetAssignmentOrderByWithRelationInput[]
+
+  @Field(() => ValetAssignmentWhereUniqueInput, { nullable: true })
   cursor: Prisma.ValetAssignmentWhereUniqueInput
+
+  @Field(() => Int, { nullable: true })
   take: number
+
+  @Field(() => Int, { nullable: true })
   skip: number
-  @Field(() => [Prisma.ValetAssignmentScalarFieldEnum])
+
+  @Field(() => [Prisma.ValetAssignmentScalarFieldEnum], { nullable: true })
   distinct: Prisma.ValetAssignmentScalarFieldEnum[]
 }
 
@@ -37,5 +56,6 @@ export class FindManyValetAssignmentArgs extends PartialType(
 
 @ArgsType()
 export class FindUniqueValetAssignmentArgs {
-  where: ValetAssignmentWhereUniqueInput
+  @Field(() => ValetAssignmentWhereUniqueInput)
+  where!: ValetAssignmentWhereUniqueInput
 }

@@ -36,6 +36,8 @@ const MAX_AGE = 60 * 60 * 24 // 1 day
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       introspection: true,
+      debug: true, // ✅ Enables detailed GraphQL schema error logs
+      playground: true, // Optional, enables GraphQL Playground
       fieldResolverEnhancers: ['guards'],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       buildSchemaOptions: {

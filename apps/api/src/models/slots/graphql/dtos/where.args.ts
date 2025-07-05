@@ -30,24 +30,46 @@ export class EnumSlotTypeFilter {
 export class SlotWhereInputStrict
   implements RestrictProperties<SlotWhereInputStrict, Prisma.SlotWhereInput>
 {
+  @Field(() => IntFilter, { nullable: true })
   id: IntFilter
+
+  @Field(() => DateTimeFilter, { nullable: true })
   createdAt: DateTimeFilter
+
+  @Field(() => DateTimeFilter, { nullable: true })
   updatedAt: DateTimeFilter
+
+  @Field(() => StringFilter, { nullable: true })
   displayName: StringFilter
+
+  @Field(() => FloatFilter, { nullable: true })
   pricePerHour: FloatFilter
+
+  @Field(() => IntFilter, { nullable: true })
   length: IntFilter
+
+  @Field(() => IntFilter, { nullable: true })
   width: IntFilter
+
+  @Field(() => IntFilter, { nullable: true })
   height: IntFilter
 
+  @Field(() => EnumSlotTypeFilter)
   type: EnumSlotTypeFilter
+
+  @Field(() => IntFilter, { nullable: true })
   garageId: IntFilter
+
+  @Field(() => GarageRelationFilter, { nullable: true })
   Garage: GarageRelationFilter
+
+  @Field(() => BookingListRelationFilter, { nullable: true })
   Bookings: BookingListRelationFilter
-  // Todo: Add the below field decorator only to the $Enums types.
-  // @Field(() => $Enums.x)
 
   AND: SlotWhereInput[]
+
   OR: SlotWhereInput[]
+
   NOT: SlotWhereInput[]
 }
 
