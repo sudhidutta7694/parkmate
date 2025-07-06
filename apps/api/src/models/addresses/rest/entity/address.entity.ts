@@ -1,30 +1,30 @@
 import { Address } from '../../../../../generated/prisma'
 import { IsDate, IsString, IsInt } from 'class-validator'
 import { RestrictProperties } from 'src/common/dtos/common.input'
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 
 export class AddressEntity
   implements RestrictProperties<AddressEntity, Address>
 {
   @IsString()
-    @ApiProperty()
+  @ApiProperty()
   address: string
   @IsInt()
-    @ApiProperty()
+  @ApiProperty()
   id: number
   @IsDate()
-    @ApiProperty()
+  @ApiProperty()
   createdAt: Date
   @IsDate()
-    @ApiProperty()
+  @ApiProperty()
   updatedAt: Date
   @IsInt()
-    @ApiProperty()
+  @ApiProperty()
   lat: number
   @IsInt()
-    @ApiProperty()
+  @ApiProperty()
   lng: number
   @IsInt()
-    @ApiProperty()
+  @ApiProperty()
   garageId: number
 }

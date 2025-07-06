@@ -1,18 +1,18 @@
 import { Admin } from '../../../../../generated/prisma'
 import { IsDate, IsString } from 'class-validator'
 import { RestrictProperties } from 'src/common/dtos/common.input'
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger'
 
 export class AdminEntity implements RestrictProperties<AdminEntity, Admin> {
   @IsString()
-    @ApiProperty()
+  @ApiProperty()
   uid: string
 
   @IsDate()
-    @ApiProperty()
+  @ApiProperty()
   createdAt: Date
 
   @IsDate()
-    @ApiProperty()
+  @ApiProperty()
   updatedAt: Date
 }
