@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css'
+import '@parkmate/ui/src/app/globals.css'
 import { ApolloProvider } from '@parkmate/network/src/config/apollo'
 
 const geistSans = Geist({
