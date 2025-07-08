@@ -1,6 +1,9 @@
-import { sampleLib } from '@parkmate/sample-lib'
+import {BrandIcon} from '@parkmate/ui/src/components/atoms/BrandIcon'
 
 export default function Home() {
-  sampleLib()
-  return <div>Hello</div>
+  return (
+    <div>
+      <BrandIcon />
+    </div>
+  )
 }
